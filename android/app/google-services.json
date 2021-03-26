@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "192063383789",
+    "project_id": "listastic-5fe33",
+    "storage_bucket": "listastic-5fe33.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192063383789:android:3c008a81a8b03a37fdc4e4",
+        "android_client_info": {
+          "package_name": "io.github.nikolaj808"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192063383789-g2bslh3gvq0cnqp9uev679ji3quubg4h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.github.nikolaj808",
+            "certificate_hash": "5fa16f8ec489e84293775e9c57a9de72be623954"
+          }
+        },
+        {
+          "client_id": "192063383789-vd0lsusvfq4i2jg9lrlgji73flsup68s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6BtS-gTquIKInY4S1lwWD4ae-KiNTsgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192063383789-vd0lsusvfq4i2jg9lrlgji73flsup68s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

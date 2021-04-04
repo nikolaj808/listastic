@@ -7,13 +7,13 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:listastic/app/app.dart';
-import 'package:listastic/counter/counter.dart';
+import 'package:listastic/items/items.dart';
 
 void main() {
   group('App', () {
-    testWidgets('renders CounterPage', (tester) async {
-      await tester.pumpWidget(const App());
-      expect(find.byType(CounterPage), findsOneWidget);
+    testWidgets('renders ItemsPage', (tester) async {
+      await tester.pumpWidget(App(initialRoute: '/'));
+      expect(find.byType(ItemsPage), findsOneWidget);
     });
   });
 }

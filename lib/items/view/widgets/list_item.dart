@@ -26,7 +26,7 @@ class ListItem extends StatelessWidget {
           child: Text('x${item.quantity}'),
         ),
         title: Text(item.name),
-        subtitle: Text('Tilføjet af: ${item.userId}'),
+        subtitle: Text('Tilføjet af: ${item.addedByDisplayName}'),
         trailing: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

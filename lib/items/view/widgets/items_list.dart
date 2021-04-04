@@ -15,6 +15,7 @@ class ItemsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: items.length,
+      padding: const EdgeInsets.only(bottom: 64.0),
       itemBuilder: (context, index) {
         final item = items[index];
 

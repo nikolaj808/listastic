@@ -9,9 +9,13 @@ abstract class ItemsCubitState extends Equatable {
 
 class ItemsIdle extends ItemsCubitState {}
 
-class ItemsMutating extends ItemsCubitState {}
+class ItemCreating extends ItemsCubitState {}
 
-class ItemsSuccess extends ItemsCubitState {}
+class ItemCreateSuccess extends ItemsCubitState {}
+
+class ItemUpdating extends ItemsCubitState {}
+
+class ItemUpdateSuccess extends ItemsCubitState {}
 
 class ItemsError extends ItemsCubitState {
   final String message;

@@ -17,9 +17,9 @@ class FirebaseItemsRepository implements ItemsRepository {
 
   @override
   Future<Item> getItem(String itemId) async {
-    final newItem = await itemsCollection.doc(itemId).get();
+    final item = await itemsCollection.doc(itemId).get();
 
-    return Item.fromEntity(ItemEntity.fromSnapshot(newItem));
+    return Item.fromEntity(ItemEntity.fromSnapshot(item));
   }
 
   @override

@@ -1,47 +1,35 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
-class ItemEntity extends Equatable {
+class ShoppinglistEntity extends Equatable {
   final String? id;
   final String name;
-  final int quantity;
+  final String ownerId;
   final DateTime createdAt;
   final DateTime lastModifiedAt;
-  final String userId;
-  final String addedByDisplayName;
-  final String shoppinglistId;
 
   // ignore: sort_constructors_first
-  const ItemEntity({
+  const ShoppinglistEntity({
     this.id,
     required this.name,
-    required this.quantity,
+    required this.ownerId,
     required this.createdAt,
     required this.lastModifiedAt,
-    required this.userId,
-    required this.addedByDisplayName,
-    required this.shoppinglistId,
   });
 
-  ItemEntity copyWith({
+  ShoppinglistEntity copyWith({
     String? id,
     String? name,
-    int? quantity,
+    String? ownerId,
     DateTime? createdAt,
     DateTime? lastModifiedAt,
-    String? userId,
-    String? addedByDisplayName,
-    String? shoppinglistId,
   }) {
-    return ItemEntity(
+    return ShoppinglistEntity(
       id: id ?? this.id,
       name: name ?? this.name,
-      quantity: quantity ?? this.quantity,
+      ownerId: ownerId ?? this.ownerId,
       createdAt: createdAt ?? this.createdAt,
       lastModifiedAt: lastModifiedAt ?? this.lastModifiedAt,
-      userId: userId ?? this.userId,
-      addedByDisplayName: addedByDisplayName ?? this.addedByDisplayName,
-      shoppinglistId: shoppinglistId ?? this.shoppinglistId,
     );
   }
 
@@ -49,42 +37,33 @@ class ItemEntity extends Equatable {
     return {
       'id': id ?? '',
       'name': name,
-      'quantity': quantity,
+      'ownerId': ownerId,
       'createdAt': createdAt.millisecondsSinceEpoch,
       'lastModifiedAt': lastModifiedAt.millisecondsSinceEpoch,
-      'userId': userId,
-      'addedByDisplayName': addedByDisplayName,
-      'shoppinglistId': shoppinglistId,
     };
   }
 
-  static ItemEntity fromJson(Map<String, Object> json) {
-    return ItemEntity(
+  static ShoppinglistEntity fromJson(Map<String, Object> json) {
+    return ShoppinglistEntity(
       id: json['id'] as String,
       name: json['name'] as String,
-      quantity: json['quantity'] as int,
+      ownerId: json['ownerId'] as String,
       createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt'] as int),
       lastModifiedAt:
           DateTime.fromMillisecondsSinceEpoch(json['lastModifiedAt'] as int),
-      userId: json['userId'] as String,
-      addedByDisplayName: json['addedByDisplayName'] as String,
-      shoppinglistId: json['shoppinglistId'] as String,
     );
   }
 
-  static ItemEntity fromSnapshot(DocumentSnapshot snapshot) {
+  static ShoppinglistEntity fromSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data()!;
 
-    return ItemEntity(
+    return ShoppinglistEntity(
       id: snapshot.id,
       name: data['name'] as String,
-      quantity: data['quantity'] as int,
+      ownerId: data['ownerId'] as String,
       createdAt: DateTime.fromMillisecondsSinceEpoch(data['createdAt'] as int),
       lastModifiedAt:
           DateTime.fromMillisecondsSinceEpoch(data['lastModifiedAt'] as int),
-      userId: data['userId'] as String,
-      addedByDisplayName: data['addedByDisplayName'] as String,
-      shoppinglistId: data['shoppinglistId'] as String,
     );
   }
 
@@ -92,18 +71,15 @@ class ItemEntity extends Equatable {
     return {
       'id': id ?? '',
       'name': name,
-      'quantity': quantity,
+      'ownerId': ownerId,
       'createdAt': createdAt.millisecondsSinceEpoch,
       'lastModifiedAt': lastModifiedAt.millisecondsSinceEpoch,
-      'userId': userId,
-      'addedByDisplayName': addedByDisplayName,
-      'shoppinglistId': shoppinglistId,
     };
   }
 
   @override
   List<Object> get props => [
         name,
-        quantity,
+        ownerId,
       ];
 }

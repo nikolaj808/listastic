@@ -20,7 +20,7 @@ void main() {
   };
 
   runZonedGuarded(
-    () => runApp(const App()),
+    () => runApp(App(initialRoute: '/')),
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }

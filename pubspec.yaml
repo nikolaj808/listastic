@@ -21,6 +21,8 @@ dependencies:
   cloud_firestore: ^1.0.2
   firebase_auth: ^1.0.1
   google_sign_in: ^5.0.1
+  supercharged: ^2.0.0
+  simple_animations: ^3.0.3
 
 dev_dependencies:
   flutter_test:

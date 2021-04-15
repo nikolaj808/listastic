@@ -1,9 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:listastic/items/view/widgets/create_item_form.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:listastic/home/view/widgets/home_scaffold_title.dart';
+import 'package:listastic/items/bloc/firebase_items_bloc.dart';
+import 'package:listastic/items/bloc/sqflite_items_bloc.dart';
+import 'package:listastic/items/view/items_page.dart';
+import 'package:listastic/items/view/widgets/create_firebase_item_form.dart';
+import 'package:listastic/items/view/widgets/create_sqflite_item_form.dart';
+import 'package:listastic/mode/cubit/mode_cubit.dart';
+import 'package:listastic/shared_preferences/service/shared_preferences_service.dart';
+import 'package:listastic/shoppinglists/bloc/firebase_shoppinglists_bloc.dart';
+import 'package:listastic/shoppinglists/bloc/sqflite_shoppinglists_bloc.dart';
 import 'package:listastic/shoppinglists/view/shoppinglists_page.dart';
 import 'package:supercharged/supercharged.dart';
-import 'package:listastic/items/items.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,7 +21,91 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final PageController _pageController = PageController();
-  int _currentPageIndex = 0;
+
+  late int _currentPageIndex;
+
+  late Widget _floatingActionButton;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _currentPageIndex = 0;
+
+    _rebuildFloatingActionButton(0);
+
+    _setInitialMode();
+
+    context.read<SqfliteShoppinglistsBloc>().add(SqfliteLoadShoppinglists());
+    context.read<FirebaseShoppinglistsBloc>().add(FirebaseLoadShoppinglists());
+
+    context.read<SqfliteItemsBloc>().add(SqfliteLoadItems());
+    context.read<FirebaseItemsBloc>().add(FirebaseLoadItems());
+  }
+
+  Future<void> _setInitialMode() async {
+    final sharedPreferencesService = SharedPreferencesService();
+
+    final shoppinglistId = await sharedPreferencesService.getLatest();
+
+    if (shoppinglistId is int) {
+      context.read<ModeCubit>().setMode(ModeOffline(id: shoppinglistId));
+    } else {
+      context
+          .read<ModeCubit>()
+          .setMode(ModeOnline(id: shoppinglistId as String));
+    }
+  }
+
+  void _rebuildFloatingActionButton(int index) {
+    if (index == 0) {
+      setState(() {
+        _floatingActionButton = FloatingActionButton(
+          onPressed: () => showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(32.0),
+                topRight: Radius.circular(32.0),
+              ),
+            ),
+            builder: (context) {
+              return BlocBuilder<ModeCubit, ModeState>(
+                builder: (context, state) {
+                  if (state is ModeOffline) {
+                    return CreateSqfliteItemForm();
+                  }
+
+                  return CreateFirebaseItemForm();
+                },
+              );
+            },
+          ),
+          child: const Icon(Icons.add),
+        );
+      });
+    } else {
+      setState(() {
+        _floatingActionButton = FloatingActionButton(
+          onPressed: () => showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(32.0),
+                topRight: Radius.circular(32.0),
+              ),
+            ),
+            builder: (context) {
+              return CreateFirebaseItemForm();
+            },
+          ),
+          child: const Icon(Icons.add_shopping_cart),
+        );
+      });
+    }
+  }
 
   void _onProfileIconPressed({required BuildContext context}) {
     Scaffold.of(context).openDrawer();
@@ -47,7 +140,7 @@ class _HomePageState extends State<HomePage> {
         leading: Builder(
           builder: (context) => _buildProfileIcon(context: context),
         ),
-        title: const Text('Min indkøbsliste'),
+        title: HomeScaffoldTitle(),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -56,22 +149,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(32.0),
-              topRight: Radius.circular(32.0),
-            ),
-          ),
-          builder: (context) {
-            return CreateItemForm();
-          },
-        ),
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: _floatingActionButton,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentPageIndex,
         onTap: (index) {
@@ -97,10 +175,13 @@ class _HomePageState extends State<HomePage> {
       ),
       body: PageView(
         controller: _pageController,
-        onPageChanged: (index) => setState(() => _currentPageIndex = index),
+        onPageChanged: (index) {
+          setState(() => _currentPageIndex = index);
+          _rebuildFloatingActionButton(index);
+        },
         children: [
           ItemsPage(),
-          ShoppinglistsPage(),
+          ShoppinglistsPage(pageController: _pageController),
         ],
       ),
     );

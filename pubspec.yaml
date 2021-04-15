@@ -23,6 +23,8 @@ dependencies:
   google_sign_in: ^5.0.1
   supercharged: ^2.0.0
   simple_animations: ^3.0.3
+  sqflite: ^2.0.0+3
+  shared_preferences: ^2.0.5
 
 dev_dependencies:
   flutter_test:

@@ -4,4 +4,6 @@ class Constants {
 
   static final int maxItemNameLength = 25;
   static final int maxShoppinglistNameLength = 25;
+
+  static final String latestShoppinglistKey = 'LATEST_SHOPPINGLIST_KEY';
 }

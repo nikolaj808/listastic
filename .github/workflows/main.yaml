@@ -1,4 +1,4 @@
-name: my_app_test
+name: listastic
 
 on: [pull_request, push]
 

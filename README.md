@@ -1,4 +1,4 @@
-# My App Test
+# Listastic
 
 [![Very Good Ventures][logo]][very_good_ventures_link]
 
@@ -35,7 +35,7 @@ $ flutter run --flavor staging --target lib/main_staging.dart
 $ flutter run --flavor production --target lib/main_production.dart
 ```
 
-_\*My App Test works on iOS, Android, and Web._
+_\*Listastic works on iOS, Android, and Web._
 
 ---
 
@@ -96,7 +96,7 @@ This project relies on [flutter_localizations][flutter_localizations_link] and f
 3. Use the new string
 
 ```dart
-import 'package:my_app_test/l10n/l10n.dart';
+import 'package:listastic/l10n/l10n.dart';
 
 @override
 Widget build(BuildContext context) {

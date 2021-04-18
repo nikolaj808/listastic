@@ -1,6 +1,6 @@
 {
-    "name": "My App Test",
-    "short_name": "My App Test",
+    "name": "Listastic",
+    "short_name": "Listastic",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

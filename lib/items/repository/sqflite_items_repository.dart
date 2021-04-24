@@ -10,11 +10,13 @@ class SqfliteItemsRepository {
   SqfliteItemsRepository({required this.databaseService});
 
   // TODO: Only get items from shoppinglist with ID
-  Future<List<SqfliteItem>> getItems() async {
+  Future<List<SqfliteItem>> getItems(int shoppinglistId) async {
     final db = await databaseService.getInstance();
 
     final data = await db.query(
       ItemsTable().name,
+      where: 'shoppinglistId = ?',
+      whereArgs: [shoppinglistId],
     );
 
     final items = data

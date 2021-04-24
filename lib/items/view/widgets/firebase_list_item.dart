@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:listastic/items/bloc/firebase_items_bloc.dart';
 import 'package:listastic/items/cubit/firebase_items_cubit.dart';
+import 'package:listastic/items/view/widgets/fade_in_added_by.dart';
 import 'package:listastic/models/item/firebase_item.dart';
 
 class FirebaseListItem extends StatelessWidget {
@@ -27,7 +27,7 @@ class FirebaseListItem extends StatelessWidget {
           child: Text('x${item.quantity}'),
         ),
         title: Text(item.name),
-        subtitle: Text('Tilføjet af: ${item.addedByDisplayName}'),
+        subtitle: FadeInAddedBy(userId: item.userId),
         trailing: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

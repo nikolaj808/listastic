@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:listastic/entities/shoppinglist_entity/firebase_shoppinglist_entity.dart';
-import 'package:listastic/models/group_user.dart';
+import 'package:listastic/models/listastic_user.dart';
 
 class FirebaseShoppinglist extends Equatable {
   final String? id;
   final String name;
   final String ownerId;
-  final List<GroupUser>? groupUsers;
+  final List<ListasticUser>? users;
   final DateTime createdAt;
   final DateTime lastModifiedAt;
 
@@ -15,7 +15,7 @@ class FirebaseShoppinglist extends Equatable {
     this.id,
     required this.name,
     required this.ownerId,
-    this.groupUsers,
+    this.users,
     required this.createdAt,
     required this.lastModifiedAt,
   });
@@ -24,7 +24,7 @@ class FirebaseShoppinglist extends Equatable {
     String? id,
     String? name,
     String? ownerId,
-    List<GroupUser>? groupUsers,
+    List<ListasticUser>? users,
     DateTime? createdAt,
     DateTime? lastModifiedAt,
   }) {
@@ -32,7 +32,7 @@ class FirebaseShoppinglist extends Equatable {
       id: id ?? this.id,
       name: name ?? this.name,
       ownerId: ownerId ?? this.ownerId,
-      groupUsers: groupUsers ?? this.groupUsers,
+      users: users ?? this.users,
       createdAt: createdAt ?? this.createdAt,
       lastModifiedAt: lastModifiedAt ?? this.lastModifiedAt,
     );

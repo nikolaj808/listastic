@@ -4,6 +4,8 @@ import 'package:listastic/items/validators/create_item_form_validator.dart';
 import 'package:listastic/login/cubit/google_signin_cubit.dart';
 import 'package:listastic/models/item/firebase_item.dart';
 import 'package:listastic/shared/constants.dart';
+import 'package:listastic/shared_preferences/service/shared_preferences_service.dart';
+import 'package:listastic/shoppinglists/bloc/firebase_shoppinglists_bloc.dart';
 
 import '../../cubit/firebase_items_cubit.dart';
 
@@ -72,6 +74,14 @@ class _CreateFirebaseItemFormState extends State<CreateFirebaseItemForm> {
     quantityController.text = (parsedValue - 1).toString();
   }
 
+  Future<String?> _getCurrentShoppinglistId() async {
+    final sharedPreferencesService = SharedPreferencesService();
+
+    final shoppinglistId = await sharedPreferencesService.getLatest();
+
+    if (shoppinglistId is String) return shoppinglistId;
+  }
+
   Future<void> _createItem(BuildContext context) async {
     final currentFormState = CreateFirebaseItemForm._formKey.currentState;
 
@@ -83,19 +93,22 @@ class _CreateFirebaseItemFormState extends State<CreateFirebaseItemForm> {
       return;
     }
 
-    // TODO: Fetch userId and shoppinglistId
-    final newItem = FirebaseItem(
-      name: itemNameController.text,
-      quantity: int.parse(quantityController.text),
-      createdAt: DateTime.now(),
-      lastModifiedAt: DateTime.now(),
-      userId: BlocProvider.of<GoogleSigninCubit>(context).getCurrentUsersId(),
-      addedByDisplayName: BlocProvider.of<GoogleSigninCubit>(context)
-          .getCurrentUsersDisplayName(),
-      shoppinglistId: '',
-    );
+    final shoppinglistId = await _getCurrentShoppinglistId();
 
-    return context.read<FirebaseItemsCubit>().createItem(newItem);
+    if (shoppinglistId != null) {
+      final now = DateTime.now();
+
+      final newItem = FirebaseItem(
+        name: itemNameController.text,
+        quantity: int.parse(quantityController.text),
+        createdAt: now,
+        lastModifiedAt: now,
+        userId: BlocProvider.of<GoogleSigninCubit>(context).getCurrentUsersId(),
+        shoppinglistId: shoppinglistId,
+      );
+
+      return context.read<FirebaseItemsCubit>().createItem(newItem);
+    }
   }
 
   @override

@@ -4,6 +4,7 @@ import 'package:listastic/items/bloc/sqflite_items_bloc.dart';
 import 'package:listastic/items/cubit/sqflite_items_cubit.dart';
 import 'package:listastic/items/view/widgets/no_items.dart';
 import 'package:listastic/items/view/widgets/sqflite_items_list.dart';
+import 'package:listastic/mode/cubit/mode_cubit.dart';
 import 'package:listastic/shared/fillers/loading_state_filler.dart';
 import 'package:listastic/shared/snackbars/common_snackbar.dart';
 
@@ -46,9 +47,11 @@ class SqfliteItemsView extends StatelessWidget {
                     const SizedBox(height: 8.0),
                     ElevatedButton.icon(
                       onPressed: () {
-                        context
-                            .read<SqfliteItemsBloc>()
-                            .add(SqfliteLoadItems());
+                        final currentState =
+                            context.read<ModeCubit>().state as ModeOffline;
+
+                        context.read<SqfliteItemsBloc>().add(
+                            SqfliteLoadItems(shoppinglistId: currentState.id));
                       },
                       icon: const Icon(Icons.refresh),
                       label: const Text('Genindlæs'),

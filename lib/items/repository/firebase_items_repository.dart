@@ -5,8 +5,11 @@ import 'package:listastic/models/item/firebase_item.dart';
 class FirebaseItemsRepository {
   final itemsCollection = FirebaseFirestore.instance.collection('items');
 
-  Stream<List<FirebaseItem>> getItems() {
-    return itemsCollection.snapshots().map((snapshot) {
+  Stream<List<FirebaseItem>> getItems(String shoppinglistId) {
+    return itemsCollection
+        .where('shoppinglistId', isEqualTo: shoppinglistId)
+        .snapshots()
+        .map((snapshot) {
       return snapshot.docs
           .map(
             (doc) =>

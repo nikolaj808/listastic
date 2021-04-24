@@ -34,17 +34,18 @@ class SqfliteItemsBloc extends Bloc<SqfliteItemsEvent, SqfliteItemsState> {
     SqfliteItemsEvent event,
   ) async* {
     if (event is SqfliteLoadItems) {
-      yield* _mapLoadItemsToState();
+      yield* _mapLoadItemsToState(event);
     } else if (event is SqfliteItemsUpdated) {
       yield* _mapItemsUpdatedToState(event);
     }
   }
 
-  Stream<SqfliteItemsState> _mapLoadItemsToState() async* {
+  Stream<SqfliteItemsState> _mapLoadItemsToState(
+      SqfliteLoadItems event) async* {
     yield SqfliteItemsLoading();
 
     try {
-      final items = await itemsRepository.getItems();
+      final items = await itemsRepository.getItems(event.shoppinglistId);
 
       add(SqfliteItemsUpdated(items: items));
     } catch (e) {

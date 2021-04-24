@@ -19,6 +19,8 @@ import 'package:listastic/shoppinglists/cubit/firebase_shoppinglists_cubit.dart'
 import 'package:listastic/shoppinglists/cubit/sqflite_shoppinglists_cubit.dart';
 import 'package:listastic/shoppinglists/repository/firebase_shoppinglists_repository.dart';
 import 'package:listastic/shoppinglists/repository/sqflite_shoppinglists_repository.dart';
+import 'package:listastic/users/cubit/users_cubit.dart';
+import 'package:listastic/users/repository/users_repository.dart';
 
 class App extends StatelessWidget {
   final String initialRoute;
@@ -34,8 +36,15 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+          create: (_) => UsersCubit(
+            usersRepository: UsersRepository(),
+          ),
+        ),
+        BlocProvider(
           create: (_) => GoogleSigninCubit(
-            googleSigninRepository: GoogleSigninRepository(),
+            googleSigninRepository: GoogleSigninRepository(
+              usersRepository: UsersRepository(),
+            ),
           ),
         ),
         BlocProvider(

@@ -8,7 +8,6 @@ class FirebaseItem extends Equatable {
   final DateTime createdAt;
   final DateTime lastModifiedAt;
   final String userId;
-  final String addedByDisplayName;
   final String shoppinglistId;
 
   // ignore: sort_constructors_first
@@ -19,7 +18,6 @@ class FirebaseItem extends Equatable {
     required this.createdAt,
     required this.lastModifiedAt,
     required this.userId,
-    required this.addedByDisplayName,
     required this.shoppinglistId,
   });
 
@@ -30,7 +28,6 @@ class FirebaseItem extends Equatable {
     DateTime? createdAt,
     DateTime? lastModifiedAt,
     String? userId,
-    String? addedByDisplayName,
     String? shoppinglistId,
   }) {
     return FirebaseItem(
@@ -40,7 +37,6 @@ class FirebaseItem extends Equatable {
       createdAt: createdAt ?? this.createdAt,
       lastModifiedAt: lastModifiedAt ?? this.lastModifiedAt,
       userId: userId ?? this.userId,
-      addedByDisplayName: addedByDisplayName ?? this.addedByDisplayName,
       shoppinglistId: shoppinglistId ?? this.shoppinglistId,
     );
   }
@@ -53,7 +49,6 @@ class FirebaseItem extends Equatable {
       createdAt: createdAt,
       lastModifiedAt: lastModifiedAt,
       userId: userId,
-      addedByDisplayName: addedByDisplayName,
       shoppinglistId: shoppinglistId,
     );
   }
@@ -66,7 +61,6 @@ class FirebaseItem extends Equatable {
       createdAt: entity.createdAt,
       lastModifiedAt: entity.lastModifiedAt,
       userId: entity.userId,
-      addedByDisplayName: entity.addedByDisplayName,
       shoppinglistId: entity.shoppinglistId,
     );
   }

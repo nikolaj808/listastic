@@ -7,7 +7,15 @@ abstract class SqfliteItemsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class SqfliteLoadItems extends SqfliteItemsEvent {}
+class SqfliteLoadItems extends SqfliteItemsEvent {
+  final int shoppinglistId;
+
+  // ignore: sort_constructors_first
+  const SqfliteLoadItems({required this.shoppinglistId});
+
+  @override
+  List<Object> get props => [shoppinglistId];
+}
 
 class SqfliteItemsUpdated extends SqfliteItemsEvent {
   final List<SqfliteItem> items;

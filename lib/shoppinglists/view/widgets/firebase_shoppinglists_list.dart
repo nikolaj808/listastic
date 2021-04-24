@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:listastic/items/bloc/firebase_items_bloc.dart';
 import 'package:listastic/mode/cubit/mode_cubit.dart';
 import 'package:listastic/shared/fillers/loading_state_filler.dart';
 import 'package:listastic/shared_preferences/service/shared_preferences_service.dart';
@@ -70,14 +71,19 @@ class FirebaseShoppinglistsList extends StatelessWidget {
                       }
 
                       return ListTile(
-                        onTap: () {
+                        onTap: () async {
                           context
                               .read<ModeCubit>()
                               .setMode(ModeOnline(id: shoppinglist.id!));
-                          SharedPreferencesService()
+
+                          await SharedPreferencesService()
                               .setLatestOnline(shoppinglist.id!);
 
-                          pageController.animateToPage(
+                          context
+                              .read<FirebaseItemsBloc>()
+                              .add(FirebaseLoadItems());
+
+                          return pageController.animateToPage(
                             0,
                             duration: (0.5).seconds,
                             curve: Curves.easeInOut,

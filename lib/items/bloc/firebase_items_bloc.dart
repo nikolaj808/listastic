@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:listastic/items/repository/firebase_items_repository.dart';
 import 'package:listastic/models/item/firebase_item.dart';
+import 'package:listastic/shared/utilities/get_current_firebase_shoppinglist.dart';
 import 'package:meta/meta.dart';
 
 part 'firebase_items_event.dart';
@@ -31,10 +32,14 @@ class FirebaseItemsBloc extends Bloc<FirebaseItemsEvent, FirebaseItemsState> {
   Stream<FirebaseItemsState> _mapLoadItemsToState() async* {
     yield FirebaseItemsLoading();
 
-    await _itemsSubscription?.cancel();
-    _itemsSubscription = itemsRepository.getItems().listen(
-          (items) => add(FirebaseItemsUpdated(items: items)),
-        );
+    final shoppinglistId = await getCurrentFirebaseShoppinglist();
+
+    if (shoppinglistId != null) {
+      await _itemsSubscription?.cancel();
+      _itemsSubscription = itemsRepository
+          .getItems(shoppinglistId)
+          .listen((items) => add(FirebaseItemsUpdated(items: items)));
+    }
   }
 
   Stream<FirebaseItemsState> _mapItemsUpdatedToState(

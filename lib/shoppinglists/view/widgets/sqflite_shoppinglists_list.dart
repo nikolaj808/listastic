@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:listastic/items/bloc/sqflite_items_bloc.dart';
 import 'package:listastic/mode/cubit/mode_cubit.dart';
 import 'package:listastic/shared/fillers/loading_state_filler.dart';
 import 'package:listastic/shared_preferences/service/shared_preferences_service.dart';
@@ -66,6 +67,10 @@ class SqfliteShoppinglistsList extends StatelessWidget {
                           context
                               .read<ModeCubit>()
                               .setMode(ModeOffline(id: shoppinglist.id!));
+
+                          context.read<SqfliteItemsBloc>().add(SqfliteLoadItems(
+                              shoppinglistId: shoppinglist.id!));
+
                           SharedPreferencesService()
                               .setLatestOffline(shoppinglist.id!);
 

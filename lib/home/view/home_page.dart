@@ -34,26 +34,25 @@ class _HomePageState extends State<HomePage> {
 
     _rebuildFloatingActionButton(0);
 
-    _setInitialMode();
+    _setInitialModeAndLoad();
 
     context.read<SqfliteShoppinglistsBloc>().add(SqfliteLoadShoppinglists());
     context.read<FirebaseShoppinglistsBloc>().add(FirebaseLoadShoppinglists());
-
-    context.read<SqfliteItemsBloc>().add(SqfliteLoadItems());
-    context.read<FirebaseItemsBloc>().add(FirebaseLoadItems());
   }
 
-  Future<void> _setInitialMode() async {
+  Future<void> _setInitialModeAndLoad() async {
     final sharedPreferencesService = SharedPreferencesService();
 
     final shoppinglistId = await sharedPreferencesService.getLatest();
 
-    if (shoppinglistId is int) {
-      context.read<ModeCubit>().setMode(ModeOffline(id: shoppinglistId));
+    if (shoppinglistId is String) {
+      context.read<ModeCubit>().setMode(ModeOnline(id: shoppinglistId));
+      context.read<FirebaseItemsBloc>().add(FirebaseLoadItems());
     } else {
+      context.read<ModeCubit>().setMode(ModeOffline(id: shoppinglistId as int));
       context
-          .read<ModeCubit>()
-          .setMode(ModeOnline(id: shoppinglistId as String));
+          .read<SqfliteItemsBloc>()
+          .add(SqfliteLoadItems(shoppinglistId: shoppinglistId));
     }
   }
 

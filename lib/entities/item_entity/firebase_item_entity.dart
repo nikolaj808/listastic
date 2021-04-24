@@ -8,7 +8,6 @@ class FirebaseItemEntity extends Equatable {
   final DateTime createdAt;
   final DateTime lastModifiedAt;
   final String userId;
-  final String addedByDisplayName;
   final String shoppinglistId;
 
   // ignore: sort_constructors_first
@@ -19,7 +18,6 @@ class FirebaseItemEntity extends Equatable {
     required this.createdAt,
     required this.lastModifiedAt,
     required this.userId,
-    required this.addedByDisplayName,
     required this.shoppinglistId,
   });
 
@@ -30,7 +28,6 @@ class FirebaseItemEntity extends Equatable {
     DateTime? createdAt,
     DateTime? lastModifiedAt,
     String? userId,
-    String? addedByDisplayName,
     String? shoppinglistId,
   }) {
     return FirebaseItemEntity(
@@ -40,7 +37,6 @@ class FirebaseItemEntity extends Equatable {
       createdAt: createdAt ?? this.createdAt,
       lastModifiedAt: lastModifiedAt ?? this.lastModifiedAt,
       userId: userId ?? this.userId,
-      addedByDisplayName: addedByDisplayName ?? this.addedByDisplayName,
       shoppinglistId: shoppinglistId ?? this.shoppinglistId,
     );
   }
@@ -53,7 +49,6 @@ class FirebaseItemEntity extends Equatable {
       'createdAt': createdAt.millisecondsSinceEpoch,
       'lastModifiedAt': lastModifiedAt.millisecondsSinceEpoch,
       'userId': userId,
-      'addedByDisplayName': addedByDisplayName,
       'shoppinglistId': shoppinglistId,
     };
   }
@@ -68,7 +63,6 @@ class FirebaseItemEntity extends Equatable {
       lastModifiedAt:
           DateTime.fromMillisecondsSinceEpoch(json['lastModifiedAt'] as int),
       userId: json['userId'] as String,
-      addedByDisplayName: json['addedByDisplayName'] as String,
       shoppinglistId: json['shoppinglistId'] as String,
     );
   }
@@ -85,7 +79,6 @@ class FirebaseItemEntity extends Equatable {
       lastModifiedAt:
           DateTime.fromMillisecondsSinceEpoch(data['lastModifiedAt'] as int),
       userId: data['userId'] as String,
-      addedByDisplayName: data['addedByDisplayName'] as String,
       shoppinglistId: data['shoppinglistId'] as String,
     );
   }
@@ -98,7 +91,6 @@ class FirebaseItemEntity extends Equatable {
       'createdAt': createdAt.millisecondsSinceEpoch,
       'lastModifiedAt': lastModifiedAt.millisecondsSinceEpoch,
       'userId': userId,
-      'addedByDisplayName': addedByDisplayName,
       'shoppinglistId': shoppinglistId,
     };
   }

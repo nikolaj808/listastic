@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:listastic/entities/group_user_entity.dart';
+import 'package:listastic/entities/listastic_user_entity.dart';
 import 'package:listastic/entities/shoppinglist_entity/firebase_shoppinglist_entity.dart';
-import 'package:listastic/models/group_user.dart';
+import 'package:listastic/models/listastic_user.dart';
 import 'package:listastic/models/shoppinglist/firebase_shoppinglist.dart';
 
 class FirebaseShoppinglistsRepository {
@@ -32,11 +32,13 @@ class FirebaseShoppinglistsRepository {
     final shoppinglist = FirebaseShoppinglist.fromEntity(
         FirebaseShoppinglistEntity.fromSnapshot(shoppinglistSnapshot));
 
-    final groupUsers = groupUsersSnapshot.docs.map((snapshot) {
-      return GroupUser.fromEntity(GroupUserEntity.fromSnapshot(snapshot));
+    final shoppinglistUsers = groupUsersSnapshot.docs.map((snapshot) {
+      return ListasticUser.fromEntity(
+          ListasticUserEntity.fromMap(snapshot.data() ?? {}));
     }).toList();
 
-    final shoppinglistWithUsers = shoppinglist.copyWith(groupUsers: groupUsers);
+    final shoppinglistWithUsers =
+        shoppinglist.copyWith(users: shoppinglistUsers);
 
     return shoppinglistWithUsers;
   }

@@ -1,7 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:listastic/models/listastic_user.dart';
+import 'package:listastic/users/repository/users_repository.dart';
 
 class GoogleSigninRepository {
+  final UsersRepository usersRepository;
+
+  // ignore: sort_constructors_first
+  const GoogleSigninRepository({required this.usersRepository});
+
   Future<User> login() async {
     final auth = FirebaseAuth.instance;
 
@@ -27,6 +34,10 @@ class GoogleSigninRepository {
     if (user == null) {
       throw Exception('No user was found with that credential');
     }
+
+    final listasticUser = ListasticUser.fromUser(user);
+
+    await usersRepository.createUser(listasticUser);
 
     return user;
   }

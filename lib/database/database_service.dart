@@ -49,7 +49,7 @@ class DatabaseService {
 
     await db.insert(
       ShoppinglistsTable().name,
-      personalShoppinglist.toEntity().toMap(),
+      personalShoppinglist.toMap(),
     );
   }
 }

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:listastic/items/cubit/firebase_items_cubit.dart';
 import 'package:listastic/items/validators/create_item_form_validator.dart';
 import 'package:listastic/login/cubit/google_signin_cubit.dart';
 import 'package:listastic/models/item/firebase_item.dart';
 import 'package:listastic/shared/constants.dart';
 import 'package:listastic/shared_preferences/service/shared_preferences_service.dart';
-import 'package:listastic/shoppinglists/bloc/firebase_shoppinglists_bloc.dart';
-
-import '../../cubit/firebase_items_cubit.dart';
 
 class CreateFirebaseItemForm extends StatefulWidget {
   static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -100,11 +98,11 @@ class _CreateFirebaseItemFormState extends State<CreateFirebaseItemForm> {
 
       final newItem = FirebaseItem(
         name: itemNameController.text,
+        shoppinglistId: shoppinglistId,
+        userId: BlocProvider.of<GoogleSigninCubit>(context).getCurrentUsersId(),
         quantity: int.parse(quantityController.text),
         createdAt: now,
         lastModifiedAt: now,
-        userId: BlocProvider.of<GoogleSigninCubit>(context).getCurrentUsersId(),
-        shoppinglistId: shoppinglistId,
       );
 
       return context.read<FirebaseItemsCubit>().createItem(newItem);
@@ -203,6 +201,7 @@ class _CreateFirebaseItemFormState extends State<CreateFirebaseItemForm> {
                     ),
                   ],
                 ),
+                const Spacer(),
                 BlocBuilder<FirebaseItemsCubit, FirebaseItemsCubitState>(
                   builder: (context, state) {
                     return FloatingActionButton(

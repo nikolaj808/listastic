@@ -38,7 +38,6 @@ class GoogleSigninCubit extends Cubit<GoogleSigninState> {
   }
 
   // TODO: Kind of a hacky way to do this
-
   String getCurrentUsersId() {
     return FirebaseAuth.instance.currentUser!.uid;
   }

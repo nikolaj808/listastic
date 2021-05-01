@@ -1,6 +1,5 @@
 import 'package:listastic/database/database_service.dart';
 import 'package:listastic/database/tables/shoppinglists_table.dart';
-import 'package:listastic/entities/shoppinglist_entity/sqflite_shoppinglist_entity.dart';
 import 'package:listastic/models/shoppinglist/sqflite_shoppinglist.dart';
 
 class SqfliteShoppinglistsRepository {
@@ -17,11 +16,7 @@ class SqfliteShoppinglistsRepository {
     );
 
     final shoppinglists = data
-        .map(
-          (shoppinglist) => SqfliteShoppinglist.fromEntity(
-            SqfliteShoppinglistEntity.fromMap(shoppinglist),
-          ),
-        )
+        .map((shoppinglist) => SqfliteShoppinglist.fromMap(shoppinglist))
         .toList();
 
     return shoppinglists;
@@ -37,11 +32,7 @@ class SqfliteShoppinglistsRepository {
     );
 
     final shoppinglists = data
-        .map(
-          (shoppinglist) => SqfliteShoppinglist.fromEntity(
-            SqfliteShoppinglistEntity.fromMap(shoppinglist),
-          ),
-        )
+        .map((shoppinglist) => SqfliteShoppinglist.fromMap(shoppinglist))
         .toList();
 
     if (shoppinglists.isNotEmpty) {
@@ -49,8 +40,6 @@ class SqfliteShoppinglistsRepository {
 
       return shoppinglist;
     }
-
-    return null;
   }
 
   Future<SqfliteShoppinglist> createShoppinglist(
@@ -59,7 +48,7 @@ class SqfliteShoppinglistsRepository {
 
     final shoppinglistId = await db.insert(
       ShoppinglistsTable().name,
-      shoppinglist.toEntity().toMap(),
+      shoppinglist.toMap(),
     );
 
     final createdShoppinglist = shoppinglist.copyWith(id: shoppinglistId);
@@ -73,7 +62,7 @@ class SqfliteShoppinglistsRepository {
 
     await db.update(
       ShoppinglistsTable().name,
-      shoppinglist.toEntity().toMap(),
+      shoppinglist.toMap(),
       where: 'id = ?',
       whereArgs: [shoppinglist.id],
     );

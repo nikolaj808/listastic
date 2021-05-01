@@ -13,6 +13,8 @@ import 'package:listastic/l10n/l10n.dart';
 import 'package:listastic/login/cubit/google_signin_cubit.dart';
 import 'package:listastic/login/repository/google_signin_repository.dart';
 import 'package:listastic/mode/cubit/mode_cubit.dart';
+import 'package:listastic/shoppinglist_details/bloc/shoppinglist_details_bloc.dart';
+import 'package:listastic/shoppinglist_details/cubit/shoppinglist_details_cubit.dart';
 import 'package:listastic/shoppinglists/bloc/firebase_shoppinglists_bloc.dart';
 import 'package:listastic/shoppinglists/bloc/sqflite_shoppinglists_bloc.dart';
 import 'package:listastic/shoppinglists/cubit/firebase_shoppinglists_cubit.dart';
@@ -96,6 +98,16 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => FirebaseShoppinglistsCubit(
+            shoppinglistsRepository: FirebaseShoppinglistsRepository(),
+          ),
+        ),
+        BlocProvider(
+          create: (_) => ShoppinglistDetailsBloc(
+            shoppinglistsRepository: FirebaseShoppinglistsRepository(),
+          ),
+        ),
+        BlocProvider(
+          create: (_) => ShoppinglistDetailsCubit(
             shoppinglistsRepository: FirebaseShoppinglistsRepository(),
           ),
         ),

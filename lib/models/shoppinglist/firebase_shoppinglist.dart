@@ -1,12 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:listastic/entities/shoppinglist_entity/firebase_shoppinglist_entity.dart';
-import 'package:listastic/models/listastic_user.dart';
 
 class FirebaseShoppinglist extends Equatable {
   final String? id;
   final String name;
   final String ownerId;
-  final List<ListasticUser>? users;
+  final List<String> userIds;
   final DateTime createdAt;
   final DateTime lastModifiedAt;
 
@@ -15,7 +14,7 @@ class FirebaseShoppinglist extends Equatable {
     this.id,
     required this.name,
     required this.ownerId,
-    this.users,
+    required this.userIds,
     required this.createdAt,
     required this.lastModifiedAt,
   });
@@ -24,7 +23,7 @@ class FirebaseShoppinglist extends Equatable {
     String? id,
     String? name,
     String? ownerId,
-    List<ListasticUser>? users,
+    List<String>? userIds,
     DateTime? createdAt,
     DateTime? lastModifiedAt,
   }) {
@@ -32,35 +31,44 @@ class FirebaseShoppinglist extends Equatable {
       id: id ?? this.id,
       name: name ?? this.name,
       ownerId: ownerId ?? this.ownerId,
-      users: users ?? this.users,
+      userIds: userIds ?? this.userIds,
       createdAt: createdAt ?? this.createdAt,
       lastModifiedAt: lastModifiedAt ?? this.lastModifiedAt,
     );
   }
 
-  FirebaseShoppinglistEntity toEntity() {
-    return FirebaseShoppinglistEntity(
-      id: id,
-      name: name,
-      ownerId: ownerId,
-      createdAt: createdAt,
-      lastModifiedAt: lastModifiedAt,
+  // ignore: sort_constructors_first
+  factory FirebaseShoppinglist.fromSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data()!;
+
+    return FirebaseShoppinglist(
+      id: snapshot.id,
+      name: data['name'] as String,
+      ownerId: data['ownerId'] as String,
+      userIds: data['userIds'] as List<String>,
+      createdAt: DateTime.fromMillisecondsSinceEpoch(data['createdAt'] as int),
+      lastModifiedAt:
+          DateTime.fromMillisecondsSinceEpoch(data['lastModifiedAt'] as int),
     );
   }
 
-  static FirebaseShoppinglist fromEntity(FirebaseShoppinglistEntity entity) {
-    return FirebaseShoppinglist(
-      id: entity.id,
-      name: entity.name,
-      ownerId: entity.ownerId,
-      createdAt: entity.createdAt,
-      lastModifiedAt: entity.lastModifiedAt,
-    );
+  Map<String, Object?> toDocument() {
+    return {
+      'id': id,
+      'name': name,
+      'ownerId': ownerId,
+      'userIds': userIds,
+      'createdAt': createdAt.millisecondsSinceEpoch,
+      'lastModifiedAt': lastModifiedAt.millisecondsSinceEpoch,
+    };
   }
 
   @override
   List<Object> get props => [
+        id ?? '',
         name,
         ownerId,
+        createdAt,
+        lastModifiedAt,
       ];
 }

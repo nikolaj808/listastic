@@ -1,18 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:listastic/entities/listastic_user_entity.dart';
 
 class ListasticUser extends Equatable {
   final String id;
-  final String email;
-  final String displayName;
+  final String? email;
+  final String? displayName;
   final String? photoUrl;
 
   // ignore: sort_constructors_first
   const ListasticUser({
     required this.id,
-    required this.email,
-    required this.displayName,
+    this.email,
+    this.displayName,
     this.photoUrl,
   });
 
@@ -30,35 +30,37 @@ class ListasticUser extends Equatable {
     );
   }
 
-  ListasticUserEntity toEntity() {
-    return ListasticUserEntity(
-      id: id,
-      email: email,
-      displayName: displayName,
-      photoUrl: photoUrl,
-    );
-  }
-
-  // ignore: sort_constructors_first
-  factory ListasticUser.fromEntity(ListasticUserEntity entity) {
-    return ListasticUser(
-      id: entity.id,
-      email: entity.email,
-      displayName: entity.displayName,
-      photoUrl: entity.photoUrl,
-    );
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'email': email,
+      'displayName': displayName,
+      'photoUrl': photoUrl,
+    };
   }
 
   // ignore: sort_constructors_first
   factory ListasticUser.fromUser(User user) {
     return ListasticUser(
       id: user.uid,
-      email: user.email!,
-      displayName: user.displayName!,
+      email: user.email,
+      displayName: user.displayName,
       photoUrl: user.photoURL,
     );
   }
 
+  // ignore: sort_constructors_first
+  factory ListasticUser.fromSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data()!;
+
+    return ListasticUser(
+      id: snapshot.id,
+      email: data['email'] as String,
+      displayName: data['displayName'] as String,
+      photoUrl: data['photoUrl'] as String,
+    );
+  }
+
   @override
-  List<Object> get props => [id, email, displayName];
+  List<Object> get props => [id];
 }

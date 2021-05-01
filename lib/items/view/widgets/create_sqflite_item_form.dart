@@ -4,6 +4,7 @@ import 'package:listastic/items/cubit/sqflite_items_cubit.dart';
 import 'package:listastic/items/validators/create_item_form_validator.dart';
 import 'package:listastic/models/item/sqflite_item.dart';
 import 'package:listastic/shared/constants.dart';
+import 'package:listastic/shared_preferences/service/shared_preferences_service.dart';
 
 import '../../cubit/firebase_items_cubit.dart';
 
@@ -72,6 +73,14 @@ class _CreateSqfliteItemFormState extends State<CreateSqfliteItemForm> {
     quantityController.text = (parsedValue - 1).toString();
   }
 
+  Future<int?> _getCurrentShoppinglistId() async {
+    final sharedPreferencesService = SharedPreferencesService();
+
+    final shoppinglistId = await sharedPreferencesService.getLatest();
+
+    if (shoppinglistId is int) return shoppinglistId;
+  }
+
   Future<void> _createItem(BuildContext context) async {
     final currentFormState = CreateSqfliteItemForm._formKey.currentState;
 
@@ -83,16 +92,21 @@ class _CreateSqfliteItemFormState extends State<CreateSqfliteItemForm> {
       return;
     }
 
-    // TODO: Fetch userId and shoppinglistId
-    final newItem = SqfliteItem(
-      name: itemNameController.text,
-      quantity: int.parse(quantityController.text),
-      createdAt: DateTime.now(),
-      lastModifiedAt: DateTime.now(),
-      shoppinglistId: 1,
-    );
+    final shoppinglistId = await _getCurrentShoppinglistId();
 
-    await context.read<SqfliteItemsCubit>().createItem(newItem);
+    if (shoppinglistId != null) {
+      final now = DateTime.now();
+
+      final newItem = SqfliteItem(
+        shoppinglistId: shoppinglistId,
+        name: itemNameController.text,
+        quantity: int.parse(quantityController.text),
+        createdAt: now,
+        lastModifiedAt: now,
+      );
+
+      await context.read<SqfliteItemsCubit>().createItem(newItem);
+    }
   }
 
   @override
@@ -187,6 +201,7 @@ class _CreateSqfliteItemFormState extends State<CreateSqfliteItemForm> {
                     ),
                   ],
                 ),
+                const Spacer(),
                 BlocBuilder<FirebaseItemsCubit, FirebaseItemsCubitState>(
                   builder: (context, state) {
                     return FloatingActionButton(

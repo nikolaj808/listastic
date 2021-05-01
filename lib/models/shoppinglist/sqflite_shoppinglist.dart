@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:listastic/entities/shoppinglist_entity/sqflite_shoppinglist_entity.dart';
 
 class SqfliteShoppinglist extends Equatable {
   final int? id;
@@ -29,26 +28,31 @@ class SqfliteShoppinglist extends Equatable {
     );
   }
 
-  SqfliteShoppinglistEntity toEntity() {
-    return SqfliteShoppinglistEntity(
-      id: id,
-      name: name,
-      createdAt: createdAt,
-      lastModifiedAt: lastModifiedAt,
+  // ignore: sort_constructors_first
+  factory SqfliteShoppinglist.fromMap(Map<String, dynamic> map) {
+    return SqfliteShoppinglist(
+      id: map['id'] as int,
+      name: map['name'] as String,
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
+      lastModifiedAt:
+          DateTime.fromMillisecondsSinceEpoch(map['lastModifiedAt'] as int),
     );
   }
 
-  static SqfliteShoppinglist fromEntity(SqfliteShoppinglistEntity entity) {
-    return SqfliteShoppinglist(
-      id: entity.id,
-      name: entity.name,
-      createdAt: entity.createdAt,
-      lastModifiedAt: entity.lastModifiedAt,
-    );
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'createdAt': createdAt.millisecondsSinceEpoch,
+      'lastModifiedAt': lastModifiedAt.millisecondsSinceEpoch,
+    };
   }
 
   @override
   List<Object> get props => [
+        id ?? -1,
         name,
+        createdAt,
+        lastModifiedAt,
       ];
 }

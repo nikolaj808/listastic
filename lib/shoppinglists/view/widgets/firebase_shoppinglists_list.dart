@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:listastic/items/bloc/firebase_items_bloc.dart';
 import 'package:listastic/mode/cubit/mode_cubit.dart';
+import 'package:listastic/models/shoppinglist/firebase_shoppinglist.dart';
 import 'package:listastic/shared/fillers/loading_state_filler.dart';
 import 'package:listastic/shared_preferences/service/shared_preferences_service.dart';
 import 'package:listastic/shoppinglists/bloc/firebase_shoppinglists_bloc.dart';
+import 'package:listastic/shoppinglists/view/widgets/firebase_shoppinglist_list_item.dart';
 import 'package:supercharged/supercharged.dart';
 
 class FirebaseShoppinglistsList extends StatelessWidget {
@@ -16,6 +17,30 @@ class FirebaseShoppinglistsList extends StatelessWidget {
     Key? key,
     required this.pageController,
   }) : super(key: key);
+
+  Future<void> _onItemTapped(
+    BuildContext context,
+    FirebaseShoppinglist shoppinglist,
+  ) async {
+    context.read<ModeCubit>().setMode(ModeOnline(id: shoppinglist.id!));
+
+    await SharedPreferencesService().setLatestOnline(shoppinglist.id!);
+
+    context.read<FirebaseItemsBloc>().add(FirebaseLoadItems());
+
+    return pageController.animateToPage(
+      0,
+      duration: (0.5).seconds,
+      curve: Curves.easeInOut,
+    );
+  }
+
+  void _onEditPressed(BuildContext context, FirebaseShoppinglist shoppinglist) {
+    Navigator.of(context).pushNamed(
+      'shoppinglist-details',
+      arguments: shoppinglist.id ?? '',
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,79 +56,12 @@ class FirebaseShoppinglistsList extends StatelessWidget {
                   .map(
                     (shoppinglist) => BlocBuilder<ModeCubit, ModeState>(
                         builder: (context, state) {
-                      if (state is ModeOnline && state.id == shoppinglist.id) {
-                        return ListTile(
-                          onTap: () {},
-                          tileColor: Theme.of(context).primaryColor,
-                          title: Text(
-                            shoppinglist.name,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline6
-                                ?.copyWith(color: Colors.white),
-                          ),
-                          subtitle: Text(
-                            shoppinglist.ownerId,
-                            style: const TextStyle().copyWith(
-                              color: Colors.white,
-                            ),
-                          ),
-                          trailing: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                Jiffy(shoppinglist.lastModifiedAt)
-                                    .format('dd/MM/yy'),
-                                style: const TextStyle().copyWith(
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                Jiffy(shoppinglist.lastModifiedAt).Hm,
-                                style: const TextStyle().copyWith(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      }
-
-                      return ListTile(
-                        onTap: () async {
-                          context
-                              .read<ModeCubit>()
-                              .setMode(ModeOnline(id: shoppinglist.id!));
-
-                          await SharedPreferencesService()
-                              .setLatestOnline(shoppinglist.id!);
-
-                          context
-                              .read<FirebaseItemsBloc>()
-                              .add(FirebaseLoadItems());
-
-                          return pageController.animateToPage(
-                            0,
-                            duration: (0.5).seconds,
-                            curve: Curves.easeInOut,
-                          );
-                        },
-                        leading: const Icon(Icons.chevron_left),
-                        title: Text(
-                          shoppinglist.name,
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                        subtitle: Text(shoppinglist.ownerId),
-                        trailing: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(Jiffy(shoppinglist.lastModifiedAt)
-                                .format('dd/MM/yy')),
-                            Text(Jiffy(shoppinglist.lastModifiedAt).Hm),
-                          ],
-                        ),
+                      return FirebaseShoppinglistListItem(
+                        state: state,
+                        shoppinglist: shoppinglist,
+                        onTap: () => _onItemTapped(context, shoppinglist),
+                        onEditPressed: () =>
+                            _onEditPressed(context, shoppinglist),
                       );
                     }),
                   )
@@ -113,7 +71,15 @@ class FirebaseShoppinglistsList extends StatelessWidget {
         }
 
         if (state is FirebaseShoppinglistsEmpty) {
-          const Text('Ingen shoppinglists');
+          return Center(
+            child: Text(
+              'Ingen shoppinglists..',
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle1
+                  ?.copyWith(fontStyle: FontStyle.italic),
+            ),
+          );
         }
 
         return LoadingStateFiller();

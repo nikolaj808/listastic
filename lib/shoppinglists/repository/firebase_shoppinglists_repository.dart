@@ -1,21 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:listastic/entities/listastic_user_entity.dart';
-import 'package:listastic/entities/shoppinglist_entity/firebase_shoppinglist_entity.dart';
-import 'package:listastic/models/listastic_user.dart';
 import 'package:listastic/models/shoppinglist/firebase_shoppinglist.dart';
+import 'package:listastic/users/repository/users_repository.dart';
 
 class FirebaseShoppinglistsRepository {
+  final UsersRepository _usersRepository = UsersRepository();
+
   final shoppinglistsCollection =
       FirebaseFirestore.instance.collection('shoppinglists');
 
   Stream<List<FirebaseShoppinglist>> getShoppinglists() {
     return shoppinglistsCollection.snapshots().map((snapshot) {
       return snapshot.docs
-          .map(
-            (doc) => FirebaseShoppinglist.fromEntity(
-              FirebaseShoppinglistEntity.fromSnapshot(doc),
-            ),
-          )
+          .map((doc) => FirebaseShoppinglist.fromSnapshot(doc))
           .toList();
     });
   }
@@ -24,36 +20,48 @@ class FirebaseShoppinglistsRepository {
     final shoppinglistSnapshot =
         await shoppinglistsCollection.doc(shoppinglistId).get();
 
-    final groupUsersSnapshot = await shoppinglistsCollection
-        .doc(shoppinglistId)
-        .collection('sharedWith')
-        .get();
+    final shoppinglist =
+        FirebaseShoppinglist.fromSnapshot(shoppinglistSnapshot);
 
-    final shoppinglist = FirebaseShoppinglist.fromEntity(
-        FirebaseShoppinglistEntity.fromSnapshot(shoppinglistSnapshot));
-
-    final shoppinglistUsers = groupUsersSnapshot.docs.map((snapshot) {
-      return ListasticUser.fromEntity(
-          ListasticUserEntity.fromMap(snapshot.data() ?? {}));
-    }).toList();
-
-    final shoppinglistWithUsers =
-        shoppinglist.copyWith(users: shoppinglistUsers);
-
-    return shoppinglistWithUsers;
+    return shoppinglist;
   }
 
   Future<void> createShoppinglist(FirebaseShoppinglist shoppinglist) {
-    return shoppinglistsCollection.add(shoppinglist.toEntity().toDocument());
+    return shoppinglistsCollection.add(shoppinglist.toDocument());
   }
 
   Future<void> updateShoppinglist(FirebaseShoppinglist shoppinglist) {
     return shoppinglistsCollection
         .doc(shoppinglist.id)
-        .update(shoppinglist.toEntity().toDocument());
+        .update(shoppinglist.toDocument());
   }
 
   Future<void> deleteShoppinglist(FirebaseShoppinglist shoppinglist) {
     return shoppinglistsCollection.doc(shoppinglist.id).delete();
+  }
+
+  Future<void> addUserToShoppinglist(
+      FirebaseShoppinglist shoppinglist, String email) async {
+    final userBeingAdded = await _usersRepository.getUserByEmail(email);
+
+    if (userBeingAdded == null) {
+      throw Exception('User does not exist');
+    }
+
+    if (shoppinglist.ownerId == userBeingAdded.id) {
+      throw Exception('User is already the owner of the group');
+    }
+
+    final usersInGroup = shoppinglist.userIds;
+
+    if (usersInGroup.any((userId) => userId == userBeingAdded.id)) {
+      throw Exception('User is already in group');
+    }
+
+    return shoppinglistsCollection
+        .doc(shoppinglist.id)
+        .collection('sharedWith')
+        .doc(userBeingAdded.id)
+        .set(userBeingAdded.toMap());
   }
 }

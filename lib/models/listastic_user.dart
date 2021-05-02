@@ -8,7 +8,6 @@ class ListasticUser extends Equatable {
   final String? displayName;
   final String? photoUrl;
 
-  // ignore: sort_constructors_first
   const ListasticUser({
     required this.id,
     this.email,
@@ -39,7 +38,6 @@ class ListasticUser extends Equatable {
     };
   }
 
-  // ignore: sort_constructors_first
   factory ListasticUser.fromUser(User user) {
     return ListasticUser(
       id: user.uid,
@@ -49,7 +47,6 @@ class ListasticUser extends Equatable {
     );
   }
 
-  // ignore: sort_constructors_first
   factory ListasticUser.fromSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data()!;
 

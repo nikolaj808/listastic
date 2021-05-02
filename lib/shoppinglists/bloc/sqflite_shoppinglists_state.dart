@@ -14,7 +14,6 @@ class SqfliteShoppinglistsLoading extends SqfliteShoppinglistsState {}
 class SqfliteShoppinglistsLoaded extends SqfliteShoppinglistsState {
   final List<SqfliteShoppinglist> shoppinglists;
 
-  // ignore: sort_constructors_first
   const SqfliteShoppinglistsLoaded({required this.shoppinglists});
 
   @override

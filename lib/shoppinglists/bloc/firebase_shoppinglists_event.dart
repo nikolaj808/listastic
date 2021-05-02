@@ -12,7 +12,6 @@ class FirebaseLoadShoppinglists extends FirebaseShoppinglistsEvent {}
 class FirebaseShoppinglistsUpdated extends FirebaseShoppinglistsEvent {
   final List<FirebaseShoppinglist> shoppinglists;
 
-  // ignore: sort_constructors_first
   const FirebaseShoppinglistsUpdated({required this.shoppinglists});
 
   @override

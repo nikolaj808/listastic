@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class ShoppinglistHeader extends StatelessWidget {
   final String title;
 
-  // ignore: sort_constructors_first
   const ShoppinglistHeader({
     Key? key,
     required this.title,

@@ -12,7 +12,6 @@ class SqfliteShoppinglistsBloc
     extends Bloc<SqfliteShoppinglistsEvent, SqfliteShoppinglistsState> {
   final SqfliteShoppinglistsRepository shoppinglistsRepository;
 
-  // ignore: sort_constructors_first
   SqfliteShoppinglistsBloc({required this.shoppinglistsRepository})
       : super(SqfliteShoppinglistsInitial());
 

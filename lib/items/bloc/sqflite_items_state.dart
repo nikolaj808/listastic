@@ -14,7 +14,6 @@ class SqfliteItemsLoading extends SqfliteItemsState {}
 class SqfliteItemsLoaded extends SqfliteItemsState {
   final List<SqfliteItem> items;
 
-  // ignore: sort_constructors_first
   const SqfliteItemsLoaded({required this.items});
 
   @override
@@ -27,7 +26,6 @@ class SqfliteItemsLoaded extends SqfliteItemsState {
 class SqfliteItemsError extends SqfliteItemsState {
   final String message;
 
-  // ignore: sort_constructors_first
   const SqfliteItemsError({required this.message});
 
   @override

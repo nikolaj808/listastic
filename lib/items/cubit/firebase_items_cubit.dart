@@ -8,7 +8,6 @@ part 'firebase_items_cubit_state.dart';
 class FirebaseItemsCubit extends Cubit<FirebaseItemsCubitState> {
   final FirebaseItemsRepository itemsRepository;
 
-  // ignore: sort_constructors_first
   FirebaseItemsCubit({required this.itemsRepository})
       : super(FirebaseItemsIdle());
 

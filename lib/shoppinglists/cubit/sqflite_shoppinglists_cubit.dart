@@ -7,7 +7,6 @@ part 'sqflite_shoppinglists_cubit_state.dart';
 class SqfliteShoppinglistsCubit extends Cubit<SqfliteShoppinglistsState> {
   final SqfliteShoppinglistsRepository shoppinglistsRepository;
 
-  // ignore: sort_constructors_first
   SqfliteShoppinglistsCubit({required this.shoppinglistsRepository})
       : super(ShoppinglistsInitial());
 }

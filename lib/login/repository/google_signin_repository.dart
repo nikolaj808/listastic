@@ -6,7 +6,6 @@ import 'package:listastic/users/repository/users_repository.dart';
 class GoogleSigninRepository {
   final UsersRepository usersRepository;
 
-  // ignore: sort_constructors_first
   const GoogleSigninRepository({required this.usersRepository});
 
   Future<User> login() async {

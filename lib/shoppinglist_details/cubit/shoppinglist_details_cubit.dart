@@ -8,7 +8,6 @@ part 'shoppinglist_details_state.dart';
 class ShoppinglistDetailsCubit extends Cubit<ShoppinglistDetailsCubitState> {
   final FirebaseShoppinglistsRepository shoppinglistsRepository;
 
-  // ignore: sort_constructors_first
   ShoppinglistDetailsCubit({
     required this.shoppinglistsRepository,
   }) : super(ShoppinglistDetailsInitial());

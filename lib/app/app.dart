@@ -27,7 +27,6 @@ import 'package:listastic/users/repository/users_repository.dart';
 class App extends StatelessWidget {
   final String initialRoute;
 
-  // ignore: sort_constructors_first
   App({
     Key? key,
     required this.initialRoute,

@@ -12,7 +12,6 @@ class LoadingButton extends StatefulWidget {
   final BuildContext context;
   final void Function() onTap;
 
-  // ignore: sort_constructors_first
   const LoadingButton({
     Key? key,
     required this.context,

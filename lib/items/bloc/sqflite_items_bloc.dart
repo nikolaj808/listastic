@@ -14,7 +14,6 @@ class SqfliteItemsBloc extends Bloc<SqfliteItemsEvent, SqfliteItemsState> {
   final SqfliteItemsCubit sqfliteItemsCubit;
   StreamSubscription? _sqfliteItemsCubitSubscription;
 
-  // ignore: sort_constructors_first
   SqfliteItemsBloc({
     required this.itemsRepository,
     required this.sqfliteItemsCubit,

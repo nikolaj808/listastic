@@ -8,7 +8,6 @@ part 'users_state.dart';
 class UsersCubit extends Cubit<UsersState> {
   final UsersRepository usersRepository;
 
-  // ignore: sort_constructors_first
   UsersCubit({required this.usersRepository}) : super(UsersInitial());
 
   Future<ListasticUser> getUserById(String userId) {

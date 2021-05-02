@@ -8,7 +8,6 @@ import 'package:supercharged/supercharged.dart';
 class FadeInAddedBy extends StatelessWidget {
   final String userId;
 
-  // ignore: sort_constructors_first
   const FadeInAddedBy({
     Key? key,
     required this.userId,

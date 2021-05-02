@@ -5,7 +5,6 @@ import 'package:listastic/models/item/firebase_item.dart';
 class FirebaseItemsList extends StatelessWidget {
   final List<FirebaseItem> items;
 
-  // ignore: sort_constructors_first
   const FirebaseItemsList({
     Key? key,
     required this.items,

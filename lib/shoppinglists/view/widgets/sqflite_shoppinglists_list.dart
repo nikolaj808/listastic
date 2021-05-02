@@ -11,7 +11,6 @@ import 'package:supercharged/supercharged.dart';
 class SqfliteShoppinglistsList extends StatelessWidget {
   final PageController pageController;
 
-  // ignore: sort_constructors_first
   const SqfliteShoppinglistsList({
     Key? key,
     required this.pageController,

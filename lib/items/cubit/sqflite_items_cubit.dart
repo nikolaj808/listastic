@@ -8,7 +8,6 @@ part 'sqflite_items_cubit_state.dart';
 class SqfliteItemsCubit extends Cubit<SqfliteItemsCubitState> {
   final SqfliteItemsRepository itemsRepository;
 
-  // ignore: sort_constructors_first
   SqfliteItemsCubit({required this.itemsRepository})
       : super(SqfliteItemsIdle());
 

@@ -5,7 +5,6 @@ import 'package:listastic/models/item/sqflite_item.dart';
 class SqfliteItemsList extends StatelessWidget {
   final List<SqfliteItem> items;
 
-  // ignore: sort_constructors_first
   const SqfliteItemsList({
     Key? key,
     required this.items,

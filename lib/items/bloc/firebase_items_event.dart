@@ -13,7 +13,6 @@ class FirebaseLoadItems extends FirebaseItemsEvent {}
 class FirebaseItemsUpdated extends FirebaseItemsEvent {
   final List<FirebaseItem> items;
 
-  // ignore: sort_constructors_first
   const FirebaseItemsUpdated({required this.items});
 
   @override

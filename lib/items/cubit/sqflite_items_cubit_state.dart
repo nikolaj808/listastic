@@ -14,7 +14,6 @@ class SqfliteItemCreating extends SqfliteItemsCubitState {}
 class SqfliteItemCreateSuccess extends SqfliteItemsCubitState {
   final SqfliteItem item;
 
-  // ignore: sort_constructors_first
   SqfliteItemCreateSuccess({required this.item});
 
   @override
@@ -31,7 +30,6 @@ class SqfliteItemUpdateSuccess extends SqfliteItemsCubitState {}
 class SqfliteItemError extends SqfliteItemsCubitState {
   final String message;
 
-  // ignore: sort_constructors_first
   SqfliteItemError({required this.message});
 
   @override

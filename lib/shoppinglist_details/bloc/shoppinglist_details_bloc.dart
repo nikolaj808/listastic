@@ -12,7 +12,6 @@ class ShoppinglistDetailsBloc
     extends Bloc<ShoppinglistDetailsEvent, ShoppinglistDetailsState> {
   final FirebaseShoppinglistsRepository shoppinglistsRepository;
 
-  // ignore: sort_constructors_first
   ShoppinglistDetailsBloc({
     required this.shoppinglistsRepository,
   }) : super(ShoppinglistDetailsInitial());

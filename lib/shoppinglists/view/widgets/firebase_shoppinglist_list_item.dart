@@ -12,7 +12,6 @@ class FirebaseShoppinglistListItem extends StatelessWidget {
   final void Function() onTap;
   final void Function() onEditPressed;
 
-  // ignore: sort_constructors_first
   const FirebaseShoppinglistListItem({
     Key? key,
     required this.state,

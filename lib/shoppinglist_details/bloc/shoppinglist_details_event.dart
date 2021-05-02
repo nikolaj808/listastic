@@ -10,7 +10,6 @@ abstract class ShoppinglistDetailsEvent extends Equatable {
 class GetShoppinglistDetails extends ShoppinglistDetailsEvent {
   final String shoppinglistId;
 
-  // ignore: sort_constructors_first
   GetShoppinglistDetails({required this.shoppinglistId});
 
   @override

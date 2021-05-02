@@ -12,7 +12,6 @@ import 'package:listastic/users/cubit/users_cubit.dart';
 class ShoppinglistDetailsPage extends StatefulWidget {
   final String shoppinglistId;
 
-  // ignore: sort_constructors_first
   const ShoppinglistDetailsPage({
     Key? key,
     required this.shoppinglistId,

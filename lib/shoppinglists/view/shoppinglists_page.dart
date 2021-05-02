@@ -6,7 +6,6 @@ import 'package:listastic/shoppinglists/view/widgets/sqflite_shoppinglists_list.
 class ShoppinglistsPage extends StatelessWidget {
   final PageController pageController;
 
-  // ignore: sort_constructors_first
   const ShoppinglistsPage({
     Key? key,
     required this.pageController,

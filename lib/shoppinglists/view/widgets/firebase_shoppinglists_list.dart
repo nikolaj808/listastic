@@ -12,7 +12,6 @@ import 'package:supercharged/supercharged.dart';
 class FirebaseShoppinglistsList extends StatelessWidget {
   final PageController pageController;
 
-  // ignore: sort_constructors_first
   const FirebaseShoppinglistsList({
     Key? key,
     required this.pageController,

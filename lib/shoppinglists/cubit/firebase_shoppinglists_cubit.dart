@@ -9,7 +9,6 @@ class FirebaseShoppinglistsCubit
     extends Cubit<FirebaseShoppinglistsCubitState> {
   final FirebaseShoppinglistsRepository shoppinglistsRepository;
 
-  // ignore: sort_constructors_first
   FirebaseShoppinglistsCubit({required this.shoppinglistsRepository})
       : super(ShoppinglistsInitial());
 

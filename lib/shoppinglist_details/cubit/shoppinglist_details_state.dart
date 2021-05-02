@@ -16,7 +16,6 @@ class ShoppinglistDetailsUserAddSuccess extends ShoppinglistDetailsCubitState {}
 class ShoppinglistDetailsUserAddError extends ShoppinglistDetailsCubitState {
   final String message;
 
-  // ignore: sort_constructors_first
   ShoppinglistDetailsUserAddError({required this.message});
 
   @override

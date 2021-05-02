@@ -12,7 +12,6 @@ class SqfliteLoadShoppinglists extends SqfliteShoppinglistsEvent {}
 class SqfliteShoppinglistsUpdated extends SqfliteShoppinglistsEvent {
   final List<SqfliteShoppinglist> shoppinglists;
 
-  // ignore: sort_constructors_first
   const SqfliteShoppinglistsUpdated({required this.shoppinglists});
 
   @override

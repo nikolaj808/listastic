@@ -8,7 +8,6 @@ part 'google_signin_state.dart';
 class GoogleSigninCubit extends Cubit<GoogleSigninState> {
   final GoogleSigninRepository googleSigninRepository;
 
-  // ignore: sort_constructors_first
   GoogleSigninCubit({required this.googleSigninRepository})
       : super(GoogleSigninInitial());
 

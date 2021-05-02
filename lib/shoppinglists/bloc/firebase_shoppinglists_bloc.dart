@@ -13,7 +13,6 @@ class FirebaseShoppinglistsBloc
   final FirebaseShoppinglistsRepository shoppinglistsRepository;
   StreamSubscription? _shoppinglistsSubscription;
 
-  // ignore: sort_constructors_first
   FirebaseShoppinglistsBloc({required this.shoppinglistsRepository})
       : super(FirebaseShoppinglistsInitial());
 

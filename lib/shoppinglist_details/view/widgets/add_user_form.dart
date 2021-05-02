@@ -8,7 +8,6 @@ class AddUserForm extends StatefulWidget {
   static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final FirebaseShoppinglist shoppinglist;
 
-  // ignore: sort_constructors_first
   const AddUserForm({
     Key? key,
     required this.shoppinglist,

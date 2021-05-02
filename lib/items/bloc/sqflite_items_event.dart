@@ -10,7 +10,6 @@ abstract class SqfliteItemsEvent extends Equatable {
 class SqfliteLoadItems extends SqfliteItemsEvent {
   final int shoppinglistId;
 
-  // ignore: sort_constructors_first
   const SqfliteLoadItems({required this.shoppinglistId});
 
   @override
@@ -20,7 +19,6 @@ class SqfliteLoadItems extends SqfliteItemsEvent {
 class SqfliteItemsUpdated extends SqfliteItemsEvent {
   final List<SqfliteItem> items;
 
-  // ignore: sort_constructors_first
   const SqfliteItemsUpdated({required this.items});
 
   @override

@@ -15,7 +15,6 @@ class FirebaseItemsLoading extends FirebaseItemsState {}
 class FirebaseItemsLoaded extends FirebaseItemsState {
   final List<FirebaseItem> items;
 
-  // ignore: sort_constructors_first
   const FirebaseItemsLoaded({required this.items});
 
   @override

@@ -8,7 +8,6 @@ class SqfliteItem extends Equatable {
   final DateTime createdAt;
   final DateTime lastModifiedAt;
 
-  // ignore: sort_constructors_first
   const SqfliteItem({
     this.id,
     required this.shoppinglistId,
@@ -36,7 +35,6 @@ class SqfliteItem extends Equatable {
     );
   }
 
-  // ignore: sort_constructors_first
   factory SqfliteItem.fromMap(Map<String, dynamic> map) {
     return SqfliteItem(
       id: map['id'] as int,

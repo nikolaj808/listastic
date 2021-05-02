@@ -5,7 +5,6 @@ import 'package:listastic/models/shoppinglist/sqflite_shoppinglist.dart';
 class SqfliteShoppinglistsRepository {
   final DatabaseService databaseService;
 
-  // ignore: sort_constructors_first
   SqfliteShoppinglistsRepository({required this.databaseService});
 
   Future<List<SqfliteShoppinglist>> getShoppinglists() async {

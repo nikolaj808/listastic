@@ -14,7 +14,6 @@ class FirebaseItemsBloc extends Bloc<FirebaseItemsEvent, FirebaseItemsState> {
   final FirebaseItemsRepository itemsRepository;
   StreamSubscription? _itemsSubscription;
 
-  // ignore: sort_constructors_first
   FirebaseItemsBloc({required this.itemsRepository})
       : super(FirebaseItemsInitial());
 

@@ -7,7 +7,6 @@ class ModeCubit extends Cubit<ModeState> {
   final int? sqfliteId;
   final String? firebaseId;
 
-  // ignore: sort_constructors_first
   ModeCubit({this.sqfliteId, this.firebaseId})
       : super(sqfliteId == null
             ? firebaseId == null

@@ -20,7 +20,6 @@ class FirebaseItemUpdateSuccess extends FirebaseItemsCubitState {}
 class FirebaseItemError extends FirebaseItemsCubitState {
   final String message;
 
-  // ignore: sort_constructors_first
   FirebaseItemError({required this.message});
 
   @override

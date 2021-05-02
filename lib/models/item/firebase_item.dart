@@ -10,7 +10,6 @@ class FirebaseItem extends Equatable {
   final DateTime createdAt;
   final DateTime lastModifiedAt;
 
-  // ignore: sort_constructors_first
   const FirebaseItem({
     this.id,
     required this.shoppinglistId,
@@ -41,7 +40,6 @@ class FirebaseItem extends Equatable {
     );
   }
 
-  // ignore: sort_constructors_first
   factory FirebaseItem.fromSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data()!;
 

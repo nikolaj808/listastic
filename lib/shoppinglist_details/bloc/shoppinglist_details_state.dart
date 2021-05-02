@@ -14,7 +14,6 @@ class ShoppinglistDetailsLoading extends ShoppinglistDetailsState {}
 class ShoppinglistDetailsLoaded extends ShoppinglistDetailsState {
   final FirebaseShoppinglist shoppinglist;
 
-  // ignore: sort_constructors_first
   ShoppinglistDetailsLoaded({required this.shoppinglist});
 
   @override

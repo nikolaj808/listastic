@@ -20,10 +20,27 @@ class SqfliteItemsBloc extends Bloc<SqfliteItemsEvent, SqfliteItemsState> {
   }) : super(SqfliteItemsInitial()) {
     sqfliteItemsCubit.stream.listen((cubitState) {
       if (cubitState is SqfliteItemCreateSuccess) {
-        final currentState = state as SqfliteItemsLoaded;
-        final currentItems = currentState.items;
+        final currentState = state;
 
-        add(SqfliteItemsUpdated(items: [cubitState.item, ...currentItems]));
+        if (currentState is SqfliteItemsLoaded) {
+          final currentItems = currentState.items;
+
+          add(SqfliteItemsUpdated(items: [cubitState.item, ...currentItems]));
+        } else {
+          add(SqfliteItemsUpdated(items: [cubitState.item]));
+        }
+      }
+
+      if (cubitState is SqfliteItemDeleteSuccess) {
+        final currentState = state;
+
+        if (currentState is SqfliteItemsLoaded) {
+          final currentItems = currentState.items;
+
+          if (currentItems.length == 1) {
+            add(const SqfliteItemsUpdated(items: []));
+          }
+        }
       }
     });
   }

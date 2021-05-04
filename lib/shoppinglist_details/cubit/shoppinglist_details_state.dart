@@ -9,6 +9,15 @@ abstract class ShoppinglistDetailsCubitState extends Equatable {
 
 class ShoppinglistDetailsInitial extends ShoppinglistDetailsCubitState {}
 
+class ShoppinglistDetailsCreatingShoppinglist
+    extends ShoppinglistDetailsCubitState {}
+
+class ShoppinglistDetailsCreateShoppinglistSuccess
+    extends ShoppinglistDetailsCubitState {}
+
+class ShoppinglistDetailsCreateShoppinglistError
+    extends ShoppinglistDetailsCubitState {}
+
 class ShoppinglistDetailsAddingUser extends ShoppinglistDetailsCubitState {}
 
 class ShoppinglistDetailsUserAddSuccess extends ShoppinglistDetailsCubitState {}

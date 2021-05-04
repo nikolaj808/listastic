@@ -27,6 +27,10 @@ class SqfliteItemUpdating extends SqfliteItemsCubitState {}
 
 class SqfliteItemUpdateSuccess extends SqfliteItemsCubitState {}
 
+class SqfliteItemDeleting extends SqfliteItemsCubitState {}
+
+class SqfliteItemDeleteSuccess extends SqfliteItemsCubitState {}
+
 class SqfliteItemError extends SqfliteItemsCubitState {
   final String message;
 

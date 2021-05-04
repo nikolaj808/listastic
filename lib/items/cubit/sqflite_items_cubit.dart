@@ -40,10 +40,15 @@ class SqfliteItemsCubit extends Cubit<SqfliteItemsCubitState> {
   }
 
   Future<SqfliteItem?> deleteItem(SqfliteItem item) async {
+    emit(SqfliteItemDeleting());
+
     try {
-      return itemsRepository.deleteItem(item);
+      final deletedItem = itemsRepository.deleteItem(item);
+      emit(SqfliteItemDeleteSuccess());
+      return deletedItem;
     } catch (e) {
       emit(SqfliteItemError(message: e.toString()));
+    } finally {
       emit(SqfliteItemsIdle());
     }
   }

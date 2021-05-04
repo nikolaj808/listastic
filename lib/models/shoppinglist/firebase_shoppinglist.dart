@@ -5,7 +5,7 @@ class FirebaseShoppinglist extends Equatable {
   final String? id;
   final String name;
   final String ownerId;
-  final List<String> userIds;
+  final List<dynamic> userIds;
   final DateTime createdAt;
   final DateTime lastModifiedAt;
 
@@ -43,7 +43,7 @@ class FirebaseShoppinglist extends Equatable {
       id: snapshot.id,
       name: data['name'] as String,
       ownerId: data['ownerId'] as String,
-      userIds: data['userIds'] as List<String>,
+      userIds: data['userIds'],
       createdAt: DateTime.fromMillisecondsSinceEpoch(data['createdAt'] as int),
       lastModifiedAt:
           DateTime.fromMillisecondsSinceEpoch(data['lastModifiedAt'] as int),

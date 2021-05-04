@@ -12,6 +12,21 @@ class ShoppinglistDetailsCubit extends Cubit<ShoppinglistDetailsCubitState> {
     required this.shoppinglistsRepository,
   }) : super(ShoppinglistDetailsInitial());
 
+  Future<void> createShoppinglist({
+    required FirebaseShoppinglist shoppinglist,
+  }) async {
+    emit(ShoppinglistDetailsCreatingShoppinglist());
+
+    try {
+      await shoppinglistsRepository.createShoppinglist(shoppinglist);
+      emit(ShoppinglistDetailsCreateShoppinglistSuccess());
+    } catch (e) {
+      emit(ShoppinglistDetailsCreateShoppinglistError());
+    } finally {
+      emit(ShoppinglistDetailsInitial());
+    }
+  }
+
   Future<void> addUserToShoppinglist({
     required FirebaseShoppinglist shoppinglist,
     required String email,

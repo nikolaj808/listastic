@@ -9,6 +9,7 @@ import 'package:listastic/items/view/widgets/create_firebase_item_form.dart';
 import 'package:listastic/items/view/widgets/create_sqflite_item_form.dart';
 import 'package:listastic/mode/cubit/mode_cubit.dart';
 import 'package:listastic/shared_preferences/service/shared_preferences_service.dart';
+import 'package:listastic/shoppinglist_details/view/widgets/create_firebase_shoppinglist_form.dart';
 import 'package:listastic/shoppinglists/bloc/firebase_shoppinglists_bloc.dart';
 import 'package:listastic/shoppinglists/bloc/sqflite_shoppinglists_bloc.dart';
 import 'package:listastic/shoppinglists/view/shoppinglists_page.dart';
@@ -97,7 +98,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             builder: (context) {
-              return CreateFirebaseItemForm();
+              return const CreateFirebaseShoppinglistForm();
             },
           ),
           child: const Icon(Icons.add_shopping_cart),

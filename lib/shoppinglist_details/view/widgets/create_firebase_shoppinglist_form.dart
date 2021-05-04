@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:listastic/login/cubit/google_signin_cubit.dart';
 import 'package:listastic/models/shoppinglist/firebase_shoppinglist.dart';
 import 'package:listastic/shoppinglist_details/cubit/shoppinglist_details_cubit.dart';
-import 'package:listastic/shoppinglist_details/validators/add_user_form_validator.dart';
+import 'package:listastic/shoppinglist_details/validators/create_firebase_shoppinglist_form_validator.dart';
 
-class AddUserForm extends StatefulWidget {
+class CreateFirebaseShoppinglistForm extends StatefulWidget {
   static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final FirebaseShoppinglist shoppinglist;
 
-  const AddUserForm({
-    Key? key,
-    required this.shoppinglist,
-  }) : super(key: key);
+  const CreateFirebaseShoppinglistForm({Key? key}) : super(key: key);
 
   @override
-  _AddUserFormState createState() => _AddUserFormState();
+  _CreateFirebaseShoppinglistFormState createState() =>
+      _CreateFirebaseShoppinglistFormState();
 }
 
-class _AddUserFormState extends State<AddUserForm> {
-  late TextEditingController userController;
+class _CreateFirebaseShoppinglistFormState
+    extends State<CreateFirebaseShoppinglistForm> {
+  late TextEditingController shoppinglistNameController;
 
   @override
   void initState() {
-    userController = TextEditingController(text: '');
+    shoppinglistNameController = TextEditingController(text: '');
     super.initState();
   }
 
-  Future<void> _addUserToShoppinglist(BuildContext context) async {
-    final currentFormState = AddUserForm._formKey.currentState;
+  Future<void> _createFirebaseShoppinglist(BuildContext context) async {
+    final currentFormState =
+        CreateFirebaseShoppinglistForm._formKey.currentState;
 
     if (currentFormState == null) {
       return;
@@ -37,11 +37,18 @@ class _AddUserFormState extends State<AddUserForm> {
       return;
     }
 
-    await BlocProvider.of<ShoppinglistDetailsCubit>(context)
-        .addUserToShoppinglist(
-      shoppinglist: widget.shoppinglist,
-      email: userController.text,
+    final now = DateTime.now();
+
+    final shoppinglist = FirebaseShoppinglist(
+      name: shoppinglistNameController.text,
+      ownerId: BlocProvider.of<GoogleSigninCubit>(context).getCurrentUsersId(),
+      userIds: [],
+      createdAt: now,
+      lastModifiedAt: now,
     );
+
+    await BlocProvider.of<ShoppinglistDetailsCubit>(context)
+        .createShoppinglist(shoppinglist: shoppinglist);
 
     Navigator.of(context).pop();
   }
@@ -62,7 +69,7 @@ class _AddUserFormState extends State<AddUserForm> {
           ),
         ),
         child: Form(
-          key: AddUserForm._formKey,
+          key: CreateFirebaseShoppinglistForm._formKey,
           child: Padding(
             padding: const EdgeInsets.only(
               top: 16.0,
@@ -74,21 +81,22 @@ class _AddUserFormState extends State<AddUserForm> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  'Tilføj ny bruger',
+                  'Tilføj ny indkøbsliste',
                   textAlign: TextAlign.center,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 TextFormField(
-                  controller: userController,
-                  onFieldSubmitted: (_) => _addUserToShoppinglist(context),
-                  validator: AddUserFormValidator.validateNewUserEmail,
+                  controller: shoppinglistNameController,
+                  onFieldSubmitted: (_) => _createFirebaseShoppinglist(context),
+                  validator: CreateFirebaseShoppinglistFormValidator
+                      .validateShoppinglistName,
                   autofocus: true,
-                  keyboardType: TextInputType.emailAddress,
+                  textCapitalization: TextCapitalization.sentences,
                   decoration: const InputDecoration(
-                    suffixIcon: Icon(Icons.email),
-                    labelText: 'Bruger email',
+                    suffixIcon: Icon(Icons.shopping_cart),
+                    labelText: 'Indkøbsliste navn',
                   ),
                 ),
                 const Spacer(),
@@ -97,8 +105,8 @@ class _AddUserFormState extends State<AddUserForm> {
                   builder: (context, state) {
                     return FloatingActionButton(
                       elevation: 0,
-                      onPressed: () => _addUserToShoppinglist(context),
-                      child: state is ShoppinglistDetailsAddingUser
+                      onPressed: () => _createFirebaseShoppinglist(context),
+                      child: state is ShoppinglistDetailsCreatingShoppinglist
                           ? CircularProgressIndicator(
                               backgroundColor: Theme.of(context).primaryColor,
                             )

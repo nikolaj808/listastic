@@ -2,4 +2,4 @@
 
 ## Todos
 
-1. Make a CreateFirebaseShoppinglistForm widget (remember only saving ids)
+1. Find a way to properly handle a stream for the SqfliteItemsView

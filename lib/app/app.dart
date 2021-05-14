@@ -63,7 +63,6 @@ class App extends StatelessWidget {
             itemsRepository: SqfliteItemsRepository(
               databaseService: DatabaseService(),
             ),
-            sqfliteItemsCubit: BlocProvider.of<SqfliteItemsCubit>(context),
           ),
         ),
         BlocProvider(

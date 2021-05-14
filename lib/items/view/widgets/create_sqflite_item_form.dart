@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:listastic/items/bloc/sqflite_items_bloc.dart';
 import 'package:listastic/items/cubit/sqflite_items_cubit.dart';
 import 'package:listastic/items/validators/create_item_form_validator.dart';
 import 'package:listastic/models/item/sqflite_item.dart';
@@ -105,7 +106,9 @@ class _CreateSqfliteItemFormState extends State<CreateSqfliteItemForm> {
         lastModifiedAt: now,
       );
 
-      await context.read<SqfliteItemsCubit>().createItem(newItem);
+      context.read<SqfliteItemsBloc>().add(SqfliteCreateItem(item: newItem));
+
+      Navigator.of(context).pop();
     }
   }
 

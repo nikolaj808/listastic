@@ -16,6 +16,33 @@ class SqfliteLoadItems extends SqfliteItemsEvent {
   List<Object> get props => [shoppinglistId];
 }
 
+class SqfliteCreateItem extends SqfliteItemsEvent {
+  final SqfliteItem item;
+
+  const SqfliteCreateItem({required this.item});
+
+  @override
+  List<Object> get props => [item];
+}
+
+class SqfliteUpdateItem extends SqfliteItemsEvent {
+  final SqfliteItem item;
+
+  const SqfliteUpdateItem({required this.item});
+
+  @override
+  List<Object> get props => [item];
+}
+
+class SqfliteDeleteItem extends SqfliteItemsEvent {
+  final SqfliteItem item;
+
+  const SqfliteDeleteItem({required this.item});
+
+  @override
+  List<Object> get props => [item];
+}
+
 class SqfliteItemsUpdated extends SqfliteItemsEvent {
   final List<SqfliteItem> items;
 

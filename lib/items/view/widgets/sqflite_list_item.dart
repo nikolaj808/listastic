@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:listastic/items/cubit/sqflite_items_cubit.dart';
+import 'package:listastic/items/bloc/sqflite_items_bloc.dart';
 import 'package:listastic/models/item/sqflite_item.dart';
 
 class SqfliteListItem extends StatelessWidget {
@@ -18,7 +18,7 @@ class SqfliteListItem extends StatelessWidget {
       key: Key(item.id!.toString()),
       background: Container(color: Theme.of(context).errorColor),
       onDismissed: (_) {
-        context.read<SqfliteItemsCubit>().deleteItem(item);
+        context.read<SqfliteItemsBloc>().add(SqfliteDeleteItem(item: item));
       },
       child: ListTile(
         leading: CircleAvatar(

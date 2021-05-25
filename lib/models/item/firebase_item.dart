@@ -40,7 +40,8 @@ class FirebaseItem extends Equatable {
     );
   }
 
-  factory FirebaseItem.fromSnapshot(DocumentSnapshot snapshot) {
+  factory FirebaseItem.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> snapshot) {
     final data = snapshot.data()!;
 
     return FirebaseItem(

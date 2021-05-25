@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:listastic/home/home.dart';
-import 'package:listastic/login/login.dart';
+import 'package:listastic/home/home_page.dart';
+import 'package:listastic/login/view/login_page.dart';
 import 'package:listastic/shoppinglist_details/view/shoppinglist_details_page.dart';
 
 class AppRouter {

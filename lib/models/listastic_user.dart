@@ -47,7 +47,8 @@ class ListasticUser extends Equatable {
     );
   }
 
-  factory ListasticUser.fromSnapshot(DocumentSnapshot snapshot) {
+  factory ListasticUser.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> snapshot) {
     final data = snapshot.data()!;
 
     return ListasticUser(

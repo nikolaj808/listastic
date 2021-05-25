@@ -1,42 +1,49 @@
 {
   "project_info": {
-    "project_number": "192063383789",
-    "project_id": "listastic-5fe33",
-    "storage_bucket": "listastic-5fe33.appspot.com"
+    "project_number": "1042228574027",
+    "project_id": "listastic-a859c",
+    "storage_bucket": "listastic-a859c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:192063383789:android:3c008a81a8b03a37fdc4e4",
+        "mobilesdk_app_id": "1:1042228574027:android:5b43c5df9fba25ed565ace",
         "android_client_info": {
-          "package_name": "io.github.nikolaj808"
+          "package_name": "io.github.nikolaj808.listastic"
         }
       },
       "oauth_client": [
         {
-          "client_id": "192063383789-g2bslh3gvq0cnqp9uev679ji3quubg4h.apps.googleusercontent.com",
+          "client_id": "1042228574027-epa593kll8goqbvsbh0vouqkv7uca6h1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "io.github.nikolaj808",
-            "certificate_hash": "5fa16f8ec489e84293775e9c57a9de72be623954"
+            "package_name": "io.github.nikolaj808.listastic",
+            "certificate_hash": "78387c7428d7d42bad969a60a10f699cf899e390"
           }
         },
         {
-          "client_id": "192063383789-vd0lsusvfq4i2jg9lrlgji73flsup68s.apps.googleusercontent.com",
+          "client_id": "1042228574027-j1s0arfpo888i9p9780kdjbm6e4kn810.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB6BtS-gTquIKInY4S1lwWD4ae-KiNTsgg"
+          "current_key": "AIzaSyAvOiBWlfjki_DI1VJjsW4XJ_b9oFPc6Zk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "192063383789-vd0lsusvfq4i2jg9lrlgji73flsup68s.apps.googleusercontent.com",
+              "client_id": "1042228574027-j1s0arfpo888i9p9780kdjbm6e4kn810.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1042228574027-0sani65pdrprr1fhu6s612lmvmeifm6b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.github.nikolaj808.listastic"
+              }
             }
           ]
         }

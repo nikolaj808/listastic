@@ -1,6 +1,6 @@
 {
-    "name": "Listastic",
-    "short_name": "Listastic",
+    "name": "listastic",
+    "short_name": "listastic",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

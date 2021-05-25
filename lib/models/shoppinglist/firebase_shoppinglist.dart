@@ -36,7 +36,8 @@ class FirebaseShoppinglist extends Equatable {
     );
   }
 
-  factory FirebaseShoppinglist.fromSnapshot(DocumentSnapshot snapshot) {
+  factory FirebaseShoppinglist.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> snapshot) {
     final data = snapshot.data()!;
 
     return FirebaseShoppinglist(

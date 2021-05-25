@@ -171,17 +171,17 @@ class _LoginPageState extends State<LoginPage> {
                   if (state is GoogleSigninLoading) {
                     return ElevatedButton(
                       onPressed: null,
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.resolveWith<Color>((_) =>
+                                Theme.of(context).accentColor.withOpacity(0.5)),
+                      ),
                       child: SizedBox(
                         width: 24,
                         height: 24,
                         child: CircularProgressIndicator(
                           backgroundColor: Theme.of(context).primaryColor,
                         ),
-                      ),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.resolveWith<Color>((_) =>
-                                Theme.of(context).accentColor.withOpacity(0.5)),
                       ),
                     );
                   }

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:listastic/app/app_router.dart';
 import 'package:listastic/database/database_service.dart';
 import 'package:listastic/items/bloc/firebase_items_bloc.dart';
 import 'package:listastic/items/bloc/sqflite_items_bloc.dart';
 import 'package:listastic/items/cubit/firebase_items_cubit.dart';
 import 'package:listastic/items/cubit/sqflite_items_cubit.dart';
-import 'package:listastic/items/items.dart';
 import 'package:listastic/items/repository/firebase_items_repository.dart';
-import 'package:listastic/l10n/l10n.dart';
+import 'package:listastic/items/repository/sqflite_items_repository.dart';
 import 'package:listastic/login/cubit/google_signin_cubit.dart';
 import 'package:listastic/login/repository/google_signin_repository.dart';
 import 'package:listastic/mode/cubit/mode_cubit.dart';
@@ -111,16 +110,14 @@ class App extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        title: 'Listastic',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
           primaryColor: Colors.deepPurple,
           accentColor: Colors.teal,
         ),
-        localizationsDelegates: [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-        ],
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         onGenerateRoute: AppRouter.onGenerateRoute,
         initialRoute: initialRoute,

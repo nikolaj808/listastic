@@ -9,24 +9,17 @@ class GoogleSigninRepository {
   const GoogleSigninRepository({required this.usersRepository});
 
   Future<User> login() async {
-    final auth = FirebaseAuth.instance;
+    final googleUser = await GoogleSignIn().signIn();
 
-    final googleSignIn = GoogleSignIn();
+    final googleAuth = await googleUser!.authentication;
 
-    final googleSignInAccount = await googleSignIn.signIn();
-
-    if (googleSignInAccount == null) {
-      throw Exception('No Google account was chosen');
-    }
-
-    final googleSignInAuthentication = await googleSignInAccount.authentication;
-
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
     );
 
-    final userCredential = await auth.signInWithCredential(credential);
+    final userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
 
     final user = userCredential.user;
 
@@ -42,9 +35,7 @@ class GoogleSigninRepository {
   }
 
   Future<void> logout() async {
-    final googleSignIn = GoogleSignIn();
-
-    await googleSignIn.signOut();
+    await GoogleSignIn().signOut();
     await FirebaseAuth.instance.signOut();
   }
 }
